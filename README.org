@@ -20,9 +20,56 @@ RubyCons is an implementation of basic Lisp constructs (=cons=,
 =list=, and =alist=) in Ruby. This is an expercise in Ruby
 fundamentals.
 
-This project is still under construction. The ~master~ branch is
-really just this README. Look in the ~dev~ branch for where things are
-progressing. 
+This project is still under construction. The ~master~ branch just has
+the alpha version of this README. You are reading the ~dev~ version of
+the README.
 
-WARNING: When in active development, I expect to rebase ~dev~
+WARNING: When in active development, I expect to rebase this ~dev~
 /often/. Do not expect the history of the ~dev~ branch to persist.
+
+* Implementation Notes
+
+I've patched both =BasicObject= and =NilClass= with additional
+behaviors relevant to this project. You can find these in
+=basic_object.rb= and =nil_class.rb= with corresponding tests in the
+=test= folder.
+
+Right now I'm using a lot of recursion because I find it simpler to
+reason about and implement at this stage. I may go back and attempt to
+reimplement those parts with more idiomatic Ruby iteration. I welcome
+any suggestions for how to do this.
+
+Right now there's no toplevel namespace. This is mostly because I
+don't know how to implement a context where fully qualified references
+aren't necessary (like in tests, where I would really prefer to write
+=Cons.new= instead of something like =RubyCons::Cons.new=).
+
+** DONE Cons cells
+
+=Cons= implements basic cons cells in Ruby. All the tests pass, with
+behaviors that seem appropriate. Methods in =Cons=:
+
+- =#new= :: constructor
+- =#car= :: accessor
+- =#cdr= :: accessor
+- =#cadr= :: accessor
+- =#cadr= :: accessor
+- ~#==~ :: equality, recursive
+- =#to_a= :: Ruby array of Cons structure
+- =#to_sexp= :: string of Cons as very literal lisp s-expression
+
+*** Notes
+
+I tried to exercise TDD for this, but one of the things I found was
+that I kept having to adjust my expectations after implementation. For
+example:
+
+#+BEGIN_SRC ruby
+
+#+END_SRC
+
+** TODO Lists
+
+** TODO Alists
+
+* 
